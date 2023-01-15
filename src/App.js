@@ -4,9 +4,9 @@ import "./App.css";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import Detail from "./routes/Detail.js";
-
+import axios from "axios";
 function App() {
-  let [shoes] = useState(data);
+  let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
 
   return (
@@ -27,7 +27,7 @@ function App() {
                 navigate("/detail");
               }}
             >
-              Cart
+              Detail
             </Nav.Link>
           </Nav>
         </Container>
@@ -46,11 +46,41 @@ function App() {
                   })}
                 </div>
               </div>
+              <button
+                onClick={() => {
+                  axios
+                    .get("https://codingapple1.github.io/shop/data3.json")
+                    .then((결과) => {
+                      let copy = [...shoes, ...결과.data];
+                      setShoes(copy);
+                    });
+                }}
+              >
+                더보기
+              </button>
             </>
           }
         ></Route>
-        <Route path="/detail" element={<Detail />}></Route>
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
       </Routes>
+    </div>
+  );
+}
+
+function EventPage() {
+  return (
+    <div>
+      <h4>오늘의 이벤트</h4>
+      <Outlet></Outlet>
+    </div>
+  );
+}
+
+function About() {
+  return (
+    <div>
+      <h4>어바웃입니다만</h4>
+      <Outlet></Outlet>
     </div>
   );
 }
