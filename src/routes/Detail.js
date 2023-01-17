@@ -4,15 +4,16 @@ import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 
 function Detail(props) {
+  let [count, setCount] = useState(0);
+  let [alert, setAlert] = useState(true);
+  let { id } = useParams();
+  let [탭, 탭변경] = useState(0);
+
   useEffect(() => {
     setTimeout(() => {
       setAlert(false);
     }, 5000);
   });
-
-  let [count, setCount] = useState(0);
-  let [alert, setAlert] = useState(true);
-  let { id } = useParams();
 
   return (
     <div className="container">
@@ -39,20 +40,53 @@ function Detail(props) {
 
       <Nav variant="tabs" defaultActiveKey="link0">
         <Nav.Item>
-          <Nav.Link eventKey="link0">버튼0</Nav.Link>
+          <Nav.Link
+            onClick={() => {
+              탭변경(0);
+            }}
+            eventKey="link0"
+          >
+            버튼0
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link1">버튼1</Nav.Link>
+          <Nav.Link
+            onClick={() => {
+              탭변경(1);
+            }}
+            eventKey="link1"
+          >
+            버튼1
+          </Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="link2">버튼2</Nav.Link>
+          <Nav.Link
+            onClick={() => {
+              탭변경(2);
+            }}
+            eventKey="link2"
+          >
+            버튼2
+          </Nav.Link>
         </Nav.Item>
       </Nav>
-      <div>내용0</div>
-      <div>내용1</div>
-      <div>내용2</div>
+      <TabContent 탭={탭} />
     </div>
   );
+}
+
+function TabContent(props) {
+  if (props.탭 == 0) {
+    return <div>내용0</div>;
+  }
+
+  if (props.탭 == 1) {
+    return <div>내용1</div>;
+  }
+
+  if (props.탭 == 2) {
+    return <div>내용2</div>;
+  }
 }
 
 export default Detail;
