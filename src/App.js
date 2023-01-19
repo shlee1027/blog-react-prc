@@ -3,15 +3,12 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import "./App.css";
 import data from "./data.js";
 import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
-import Detail from "./routes/Detail.js";
 import axios from "axios";
-
-export let Context1 = createContext();
+import Cart from "./routes/Cart";
 
 function App() {
   let [shoes, setShoes] = useState(data);
   let navigate = useNavigate();
-  let [재고] = useState([10, 11, 12]);
 
   return (
     <div className="App">
@@ -67,14 +64,8 @@ function App() {
             </>
           }
         ></Route>
-        <Route
-          path="/detail/:id"
-          element={
-            <Context1.Provider value={{ 재고, shoes }}>
-              <Detail shoes={shoes} />
-            </Context1.Provider>
-          }
-        />
+
+        <Route path="/cart" element={<Cart />} />
       </Routes>
     </div>
   );

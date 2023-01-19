@@ -3,11 +3,7 @@ import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { Nav } from "react-bootstrap";
 
-import { Context1 } from "./../App";
-
 function Detail(props) {
-  let { 재고 } = useContext(Context1);
-
   let [count, setCount] = useState(0);
   let [alert, setAlert] = useState(true);
   let { id } = useParams();
@@ -26,7 +22,7 @@ function Detail(props) {
       ) : null}
       <YellowBtn bg="blue">암버튼</YellowBtn>
       <YellowBtn bg="orange">암버튼</YellowBtn>
-      {재고[0]}
+
       <div className="row">
         <div className="col-md-6">
           <img
@@ -81,7 +77,6 @@ function Detail(props) {
 
 function TabContent({ 탭 }) {
   let [fade, setFade] = useState("");
-  let { 재고 } = useContext(Context1);
 
   useEffect(() => {
     setTimeout(() => {
@@ -95,7 +90,7 @@ function TabContent({ 탭 }) {
 
   return (
     <div className={"start " + fade}>
-      {[<div>{재고}</div>, <div>내용1</div>, <div>내용2</div>][탭]}
+      {[<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][탭]}
     </div>
   );
 }
